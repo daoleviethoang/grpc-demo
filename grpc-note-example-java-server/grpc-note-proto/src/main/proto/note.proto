@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.wnc.example.grpc.note.service";
+option java_outer_classname = "NoteServiceProto";
+option objc_class_prefix = "Note";
+
+package com.wnc.example.grpc.note.service;
+
+service NoteService {
+    rpc getNotes (Empty) returns (NoteListResponse) {}
+    rpc getNoteById (NoteRequestID) returns (NoteData) {}
+    rpc createNote (NoteData) returns (NoteResponse) {}
+    rpc deleteNote (NoteRequestID) returns (ResponseMessage) {}
+    rpc updateNote (NoteData) returns (NoteResponse) {}
+}
+
+message Empty {}
+
+message NoteData {
+    int64 id = 1;
+    string title = 2;
+    string content = 3;
+}
+
+message NoteRequestID {
+    int64 noteId = 1;
+}
+
+message NoteListResponse {
+    repeated NoteData noteList = 1;
+}
+
+message ResponseMessage {
+    string message = 1;
+}
+
+message NoteResponse {
+    string message = 1;
+    NoteData note = 2;
+}
